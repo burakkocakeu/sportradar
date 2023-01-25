@@ -9,10 +9,6 @@ public class Scoreboard {
     public Scoreboard() {
     }
 
-    public Scoreboard(List<Competition> competition) {
-        competitionList = competition;
-    }
-
     public List<Competition> getCompetitionList() {
         return competitionList;
     }

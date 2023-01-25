@@ -1,15 +1,19 @@
+package com.sportradar.service;
+
 import com.sportradar.dto.Competition;
 import com.sportradar.dto.Scoreboard;
 import com.sportradar.dto.Team;
 import com.sportradar.enums.Score;
-import com.sportradar.service.ScoreboardService;
+import com.sportradar.exception.ScoreboardException;
 import com.sportradar.service.impl.ScoreboardServiceImpl;
+import com.sportradar.utils.Constants;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import static org.junit.Assert.*;
 
@@ -46,13 +50,21 @@ public class ScoreboardTest {
 
     @Test
     public void singleCompetitionTeamNameAndScore_ScoreboardTest() {
-        service.getScoreboard().setCompetitionList(new ArrayList<>(List.of(
-                new Competition(new Team(teamNameList.get(0)), new Team(teamNameList.get(1)), now))));
+        Team homeTeam = new Team();
+        homeTeam.setName(teamNameList.get(0));
+        Team awayTeam = new Team();
+        awayTeam.setName(teamNameList.get(1));
+        Competition competition = new Competition();
+        competition.setHome(homeTeam);
+        competition.setAway(awayTeam);
+        competition.setDateTimeStarted(now);
+        service.getScoreboard().getCompetitionList().add(competition);
 
         assertNotNull(service.getSummary().get(0).getDateTimeStarted());
         assertNotNull(service.getSummary().get(0).getHome());
         assertEquals(teamNameList.get(0), service.getSummary().get(0).getHome().getName());
         assertEquals(0, service.getSummary().get(0).getHome().getScore());
+        assertNotNull(service.getScoreboard().getCompetitionList().get(0).getTeamById(UUID.randomUUID()));
     }
 
     @Test
@@ -74,6 +86,7 @@ public class ScoreboardTest {
                 )));
 
         List<Competition> competitionList = service.getSummary();
+        System.out.println(competitionList);
 
         assertEquals(12, competitionList.get(0).getTotalScore());
         assertEquals(teamNameList.get(6), competitionList.get(0).getHome().getName());
@@ -89,8 +102,6 @@ public class ScoreboardTest {
 
         assertEquals(4, competitionList.get(4).getTotalScore());
         assertEquals(teamNameList.get(4), competitionList.get(4).getHome().getName());
-
-        System.out.println(competitionList);
     }
 
     @Test
@@ -105,7 +116,7 @@ public class ScoreboardTest {
     }
 
     @Test
-    public void single_FinishGame_ScoreboardTest() throws Exception {
+    public void single_FinishGame_ScoreboardTest() {
         service.startNewGame(teamNameList.get(0), teamNameList.get(1), now);
         service.startNewGame(teamNameList.get(2), teamNameList.get(3), now);
         service.finishGame(service.getScoreboard().getCompetitionList().get(0).getId());
@@ -117,8 +128,19 @@ public class ScoreboardTest {
         System.out.println(service.getScoreboard().getCompetitionList());
     }
 
+
+
     @Test
-    public void single_UpdateScore_ScoreboardTest() throws Exception {
+    public void single_FinishGameCompetitionNotFound_ScoreboardTest() {
+        service.getScoreboard().getCompetitionList().add(
+                new Competition(new Team(teamNameList.get(0)), new Team(teamNameList.get(1)), now));
+
+        ScoreboardException scoreboardException = assertThrows(ScoreboardException.class, () -> service.finishGame(UUID.randomUUID()));
+        assertTrue(scoreboardException.getMessage().contentEquals(Constants.NOT_FOUND));
+    }
+
+    @Test
+    public void single_UpdateScore_ScoreboardTest() {
         service.startNewGame(teamNameList.get(0), teamNameList.get(1), now);
         Competition competition = service.getScoreboard().getCompetitionList().get(0);
         service.updateScore(competition.getId(), competition.getHome().getId(), Score.GOAL);
@@ -132,7 +154,36 @@ public class ScoreboardTest {
     }
 
     @Test
-    public void multiple_GetSummary_ScoreboardTest() throws Exception {
+    public void single_UpdateScoreCompetitionNotFound_ScoreboardTest() {
+        service.getScoreboard().getCompetitionList().add(
+                new Competition(new Team(teamNameList.get(0)), new Team(teamNameList.get(1)), now));
+
+        ScoreboardException scoreboardException = assertThrows(ScoreboardException.class, () -> service.updateScore(UUID.randomUUID(), UUID.randomUUID(), Score.GOAL));
+        assertTrue(scoreboardException.getMessage().contentEquals(Constants.NOT_FOUND));
+    }
+
+    @Test
+    public void single_UpdateScoreTeamNotFound_ScoreboardTest() {
+        service.getScoreboard().getCompetitionList().add(
+                new Competition(new Team(teamNameList.get(0)), new Team(teamNameList.get(1)), now));
+        UUID competitionId = service.getScoreboard().getCompetitionList().get(0).getId();
+
+        ScoreboardException scoreboardException = assertThrows(ScoreboardException.class, () -> service.updateScore(competitionId, UUID.randomUUID(), Score.GOAL));
+        assertTrue(scoreboardException.getMessage().contentEquals(Constants.NOT_FOUND));
+    }
+
+    @Test
+    public void single_updateScoreOfFinishedGameShouldThrowException_ScoreboardTest() {
+        service.startNewGame(teamNameList.get(0), teamNameList.get(1), now);
+        Competition competition = service.getScoreboard().getCompetitionList().get(0);
+        competition.setDateTimeEnded(now);
+
+        ScoreboardException scoreboardException = assertThrows(ScoreboardException.class, () -> service.updateScore(competition.getId(), competition.getHome().getId(), Score.GOAL));
+        assertTrue(scoreboardException.getMessage().equals(Constants.MATCH_CANNOT_BE_UPDATED));
+    }
+
+    @Test
+    public void multiple_GetSummary_ScoreboardTest() {
         service.startNewGame(teamNameList.get(0), teamNameList.get(1), now);
         service.startNewGame(teamNameList.get(2), teamNameList.get(3), now.plusHours(1));
         Competition competition1 = service.getScoreboard().getCompetitionList().get(0);
@@ -148,8 +199,6 @@ public class ScoreboardTest {
         assertEquals(teamNameList.get(2), competitionList.get(0).getHome().getName());
         assertEquals(2, competitionList.get(1).getTotalScore());
         assertEquals(teamNameList.get(0), competitionList.get(1).getHome().getName());
-
-        System.out.println(competitionList);
     }
 
 }

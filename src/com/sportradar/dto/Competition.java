@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.UUID;
 
-public class Competition {
+public class Competition implements Comparable<Competition> {
     private UUID id = UUID.randomUUID();
     private Team home;
     private Team away;
@@ -77,5 +77,13 @@ public class Competition {
                 " - " + away.getScore() + " " + away.getName() +
                 ", FT:" + dateTimeEnded +
                 '}';
+    }
+
+    @Override
+    public int compareTo(Competition o) {
+        if (this.getTotalScore() == o.getTotalScore()) {
+            return o.getDateTimeStarted().compareTo(this.getDateTimeStarted());
+        }
+        return (int) (o.getTotalScore() - this.getTotalScore());
     }
 }

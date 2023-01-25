@@ -6,6 +6,10 @@ public class Team {
     private UUID id = UUID.randomUUID();
     private String name;
     private long score;
+
+    public Team() {
+    }
+
     public Team(String name) {
         this.name = name;
     }
