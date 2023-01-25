@@ -64,7 +64,7 @@ public class ScoreboardTest {
         assertNotNull(service.getSummary().get(0).getHome());
         assertEquals(teamNameList.get(0), service.getSummary().get(0).getHome().getName());
         assertEquals(0, service.getSummary().get(0).getHome().getScore());
-        assertNotNull(service.getScoreboard().getCompetitionList().get(0).getTeamById(UUID.randomUUID()));
+        assertNotNull(getFirstCompetition().getTeamById(UUID.randomUUID()));
     }
 
     @Test
@@ -119,16 +119,24 @@ public class ScoreboardTest {
     public void single_FinishGame_ScoreboardTest() {
         service.startNewGame(teamNameList.get(0), teamNameList.get(1), now);
         service.startNewGame(teamNameList.get(2), teamNameList.get(3), now);
-        service.finishGame(service.getScoreboard().getCompetitionList().get(0).getId());
+        service.finishGame(getFirstCompetition().getId());
 
 
-        assertNotNull(service.getScoreboard().getCompetitionList().get(0).getDateTimeEnded());
+        assertNotNull(getFirstCompetition().getDateTimeEnded());
         assertNull(service.getScoreboard().getCompetitionList().get(1).getDateTimeEnded());
 
         System.out.println(service.getScoreboard().getCompetitionList());
     }
 
+    @Test
+    public void single_FinishAlreadyFinishedGameShouldThrowException_ScoreboardTest() {
+        service.getScoreboard().getCompetitionList().add(
+                new Competition(new Team(teamNameList.get(0)), new Team(teamNameList.get(1)), now));
 
+        service.finishGame(getFirstCompetition().getId());
+        ScoreboardException scoreboardException = assertThrows(ScoreboardException.class, () -> service.finishGame(getFirstCompetition().getId()));
+        assertTrue(scoreboardException.getMessage().contentEquals(Constants.MATCH_CANNOT_BE_UPDATED));
+    }
 
     @Test
     public void single_FinishGameCompetitionNotFound_ScoreboardTest() {
@@ -142,7 +150,7 @@ public class ScoreboardTest {
     @Test
     public void single_UpdateScore_ScoreboardTest() {
         service.startNewGame(teamNameList.get(0), teamNameList.get(1), now);
-        Competition competition = service.getScoreboard().getCompetitionList().get(0);
+        Competition competition = getFirstCompetition();
         service.updateScore(competition.getId(), competition.getHome().getId(), Score.GOAL);
         service.updateScore(competition.getId(), competition.getAway().getId(), Score.GOAL);
         service.updateScore(competition.getId(), competition.getAway().getId(), Score.GOAL);
@@ -166,7 +174,7 @@ public class ScoreboardTest {
     public void single_UpdateScoreTeamNotFound_ScoreboardTest() {
         service.getScoreboard().getCompetitionList().add(
                 new Competition(new Team(teamNameList.get(0)), new Team(teamNameList.get(1)), now));
-        UUID competitionId = service.getScoreboard().getCompetitionList().get(0).getId();
+        UUID competitionId = getFirstCompetition().getId();
 
         ScoreboardException scoreboardException = assertThrows(ScoreboardException.class, () -> service.updateScore(competitionId, UUID.randomUUID(), Score.GOAL));
         assertTrue(scoreboardException.getMessage().contentEquals(Constants.NOT_FOUND));
@@ -175,7 +183,7 @@ public class ScoreboardTest {
     @Test
     public void single_updateScoreOfFinishedGameShouldThrowException_ScoreboardTest() {
         service.startNewGame(teamNameList.get(0), teamNameList.get(1), now);
-        Competition competition = service.getScoreboard().getCompetitionList().get(0);
+        Competition competition = getFirstCompetition();
         competition.setDateTimeEnded(now);
 
         ScoreboardException scoreboardException = assertThrows(ScoreboardException.class, () -> service.updateScore(competition.getId(), competition.getHome().getId(), Score.GOAL));
@@ -199,6 +207,10 @@ public class ScoreboardTest {
         assertEquals(teamNameList.get(2), competitionList.get(0).getHome().getName());
         assertEquals(2, competitionList.get(1).getTotalScore());
         assertEquals(teamNameList.get(0), competitionList.get(1).getHome().getName());
+    }
+
+    private Competition getFirstCompetition() {
+        return service.getScoreboard().getCompetitionList().get(0);
     }
 
 }

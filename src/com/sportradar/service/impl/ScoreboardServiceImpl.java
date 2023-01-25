@@ -35,10 +35,11 @@ public class ScoreboardServiceImpl implements ScoreboardService {
 
     @Override
     public void finishGame(UUID competitionId) {
-        scoreboard.getCompetitionList().stream()
-                .filter(competition -> competition.getId().equals(competitionId)).findFirst()
-                .orElseThrow(() -> new ScoreboardException(Constants.NOT_FOUND))
-                .setDateTimeEnded(LocalDateTime.now());
+        Competition competition = scoreboard.getCompetitionList().stream()
+                .filter(c -> c.getId().equals(competitionId)).findFirst()
+                .orElseThrow(() -> new ScoreboardException(Constants.NOT_FOUND));
+        Assertions.assertNull(competition.getDateTimeEnded(), Constants.MATCH_CANNOT_BE_UPDATED);
+        competition.setDateTimeEnded(LocalDateTime.now());
         System.out.println("The match has finished!");
     }
 
@@ -51,6 +52,7 @@ public class ScoreboardServiceImpl implements ScoreboardService {
                 .orElseThrow(() -> new ScoreboardException(Constants.NOT_FOUND));
         Assertions.assertNull(competition.getDateTimeEnded(), Constants.MATCH_CANNOT_BE_UPDATED);
         team.setScore(team.getScore() + score.getValue());
+        System.out.println(String.format("The match has updated! %s: %s", team.getName(), team.getScore()));
     }
 
     @Override

@@ -4,25 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="413834c8-94ba-44e1-a1a5-2bcd73b3a411" name="Changes" comment="test">
-      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sportradar.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/sportradar/exception/BaseException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/sportradar/exception/ScoreboardException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/sportradar/utils/Assertions.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/com/sportradar/MainTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/sportradar/dto/Competition.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/sportradar/dto/Competition.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/sportradar/dto/Scoreboard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/sportradar/dto/Scoreboard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/sportradar/dto/Team.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/sportradar/dto/Team.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/sportradar/service/ScoreboardService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/sportradar/service/ScoreboardService.java" afterDir="false" />
+    <list default="true" id="413834c8-94ba-44e1-a1a5-2bcd73b3a411" name="Changes" comment="adding some tests and refactoring">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/sportradar/service/impl/ScoreboardServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/sportradar/service/impl/ScoreboardServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/sportradar/utils/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/sportradar/utils/Constants.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/ScoreboardTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/com/sportradar/service/ScoreboardTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/com/sportradar/service/ScoreboardTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/com/sportradar/service/ScoreboardTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -118,7 +103,7 @@
       <recent name="com.sportradar.exception" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.All in sportradar">
+  <component name="RunManager" selected="JUnit.ScoreboardTest">
     <configuration name="All in sportradar" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="sportradar" />
       <option name="PACKAGE_NAME" value="" />
@@ -151,11 +136,17 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ScoreboardTest.singleCompetitionTeamNameAndScore_ScoreboardTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ScoreboardTest.single_FinishAlreadyFinishedGameShouldThrowException_ScoreboardTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="sportradar" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.sportradar.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
       <option name="PACKAGE_NAME" value="com.sportradar.service" />
       <option name="MAIN_CLASS_NAME" value="com.sportradar.service.ScoreboardTest" />
-      <option name="METHOD_NAME" value="singleCompetitionTeamNameAndScore_ScoreboardTest" />
+      <option name="METHOD_NAME" value="single_FinishAlreadyFinishedGameShouldThrowException_ScoreboardTest" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -180,17 +171,17 @@
     <list>
       <item itemvalue="JUnit.All in sportradar" />
       <item itemvalue="JUnit.MainTest" />
-      <item itemvalue="JUnit.ScoreboardTest.singleCompetitionTeamNameAndScore_ScoreboardTest" />
+      <item itemvalue="JUnit.ScoreboardTest.single_FinishAlreadyFinishedGameShouldThrowException_ScoreboardTest" />
       <item itemvalue="JUnit.ScoreboardTest.single_updateScoreOfFinishedGameShouldThrowException_ScoreboardTest" />
       <item itemvalue="JUnit.ScoreboardTest" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.All in sportradar" />
         <item itemvalue="JUnit.ScoreboardTest" />
+        <item itemvalue="JUnit.ScoreboardTest.single_FinishAlreadyFinishedGameShouldThrowException_ScoreboardTest" />
+        <item itemvalue="JUnit.All in sportradar" />
         <item itemvalue="JUnit.ScoreboardTest.single_updateScoreOfFinishedGameShouldThrowException_ScoreboardTest" />
         <item itemvalue="JUnit.MainTest" />
-        <item itemvalue="JUnit.ScoreboardTest.singleCompetitionTeamNameAndScore_ScoreboardTest" />
       </list>
     </recent_temporary>
   </component>
@@ -205,7 +196,7 @@
       <workItem from="1674317245899" duration="15916000" />
       <workItem from="1674383019280" duration="86000" />
       <workItem from="1674565943963" duration="3202000" />
-      <workItem from="1674580292044" duration="7560000" />
+      <workItem from="1674580292044" duration="8789000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <created>1674573482029</created>
@@ -221,7 +212,14 @@
       <option name="project" value="LOCAL" />
       <updated>1674580343791</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="adding some tests and refactoring">
+      <created>1674679704983</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1674679704983</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -241,7 +239,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="init" />
     <MESSAGE value="test" />
-    <option name="LAST_COMMIT_MESSAGE" value="test" />
+    <MESSAGE value="adding some tests and refactoring" />
+    <option name="LAST_COMMIT_MESSAGE" value="adding some tests and refactoring" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/sportradar$All_in_sportradar.ic" NAME="All in sportradar Coverage Results" MODIFIED="1674679645386" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
