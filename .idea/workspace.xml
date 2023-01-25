@@ -6,12 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="413834c8-94ba-44e1-a1a5-2bcd73b3a411" name="Changes" comment="adding some more tests and more refactoring">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/sportradar/dto/Competition.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/sportradar/dto/Competition.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/sportradar/dto/Team.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/sportradar/dto/Team.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/sportradar/service/impl/ScoreboardServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/sportradar/service/impl/ScoreboardServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/sportradar/utils/Assertions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/sportradar/utils/Assertions.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/sportradar/utils/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/sportradar/utils/Constants.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/com/sportradar/service/ScoreboardTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/com/sportradar/service/ScoreboardTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -201,7 +196,7 @@
       <workItem from="1674317245899" duration="15916000" />
       <workItem from="1674383019280" duration="86000" />
       <workItem from="1674565943963" duration="3202000" />
-      <workItem from="1674580292044" duration="10030000" />
+      <workItem from="1674580292044" duration="10994000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <created>1674573482029</created>
@@ -231,7 +226,14 @@
       <option name="project" value="LOCAL" />
       <updated>1674681242018</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="adding some more tests and more refactoring">
+      <created>1674682409024</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1674682409024</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -260,7 +262,7 @@
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/sportradar$All_in_sportradar.ic" NAME="All in sportradar Coverage Results" MODIFIED="1674679645386" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="coverage/sportradar$ScoreboardTest.ic" NAME="ScoreboardTest Coverage Results" MODIFIED="1674682181604" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/sportradar$ScoreboardTest.ic" NAME="ScoreboardTest Coverage Results" MODIFIED="1674682377359" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/sportradar$MainTest.ic" NAME="MainTest Coverage Results" MODIFIED="1674675284430" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>com.sportradar.*</FILTER>
     </SUITE>
