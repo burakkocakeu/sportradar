@@ -7,4 +7,9 @@ public final class Assertions {
         if (o != null)
             throw new ScoreboardException(message);
     }
+
+    public static void assertFalse(boolean expression, String message) {
+        if (expression)
+            throw new ScoreboardException(message);
+    }
 }

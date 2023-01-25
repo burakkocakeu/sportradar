@@ -28,8 +28,9 @@ public class ScoreboardServiceImpl implements ScoreboardService {
 
     @Override
     public void startNewGame(String home, String away, LocalDateTime dateTimeStarted) {
-        scoreboard.getCompetitionList()
-                .add(new Competition(new Team(home), new Team(away), dateTimeStarted));
+        Competition newCompetition = new Competition(new Team(home), new Team(away), dateTimeStarted);
+        Assertions.assertFalse(scoreboard.getCompetitionList().contains(newCompetition), Constants.MATCH_CANNOT_BE_RECREATED);
+        scoreboard.getCompetitionList().add(newCompetition);
         System.out.println("The match has started!");
     }
 

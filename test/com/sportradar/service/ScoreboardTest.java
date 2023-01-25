@@ -116,6 +116,15 @@ public class ScoreboardTest {
     }
 
     @Test
+    public void multiple_StartNewGameTwiceShouldThrowException_ScoreboardTest() {
+        service.startNewGame(teamNameList.get(0), teamNameList.get(1), now);
+
+        ScoreboardException scoreboardException = assertThrows(ScoreboardException.class, () -> service.startNewGame(teamNameList.get(0), teamNameList.get(1), now));
+        assertTrue(scoreboardException.getMessage().contentEquals(Constants.MATCH_CANNOT_BE_RECREATED));
+        assertTrue(getFirstCompetition().hashCode() == new Competition(new Team(teamNameList.get(0)), new Team(teamNameList.get(1)), now).hashCode());
+    }
+
+    @Test
     public void single_FinishGame_ScoreboardTest() {
         service.startNewGame(teamNameList.get(0), teamNameList.get(1), now);
         service.startNewGame(teamNameList.get(2), teamNameList.get(3), now);

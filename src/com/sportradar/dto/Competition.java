@@ -1,6 +1,7 @@
 package com.sportradar.dto;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -77,6 +78,19 @@ public class Competition implements Comparable<Competition> {
                 " - " + away.getScore() + " " + away.getName() +
                 ", FT:" + dateTimeEnded +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Competition that = (Competition) o;
+        return Objects.equals(home, that.home) && Objects.equals(away, that.away) && Objects.equals(dateTimeEnded, that.dateTimeEnded);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(home, away, dateTimeEnded);
     }
 
     @Override
